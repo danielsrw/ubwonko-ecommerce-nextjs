@@ -1,5 +1,8 @@
 import '../styles/globals.css'
 import { useEffect } from 'react';
+import { SnackbarProvider } from 'notistack';
+import { StoreProvider } from '../utils/Store';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 function MyApp({ Component, pageProps }) {
     useEffect(() => {
@@ -8,7 +11,11 @@ function MyApp({ Component, pageProps }) {
             jssStyles.parentElement.removeChild(jssStyles);
         }
     }, []);
-    return <Component {...pageProps} />
+    return (
+        <StoreProvider>
+            <Component {...pageProps} />
+        </StoreProvider>
+    )
 }
 
 export default MyApp

@@ -17,6 +17,8 @@ import { AppBar, Toolbar, Typography, Container, Link, createMuiTheme, ThemeProv
 
 function Layout({ title, description, children }) {
 	const classes = useStyles();
+    const { state, dispatch } = useContext(Store);
+    const { darkMode } = state;
     const theme = createMuiTheme({
         typography: {
             h1: {
@@ -31,7 +33,7 @@ function Layout({ title, description, children }) {
             },
         },
         palette: {
-            type: 'dark',
+            type: darkMode ? 'dark' : 'light',
             primary: {
                 main: '#f0c000',
             },
@@ -40,6 +42,12 @@ function Layout({ title, description, children }) {
             },
         },
     });
+
+    const darkModeChangeHandler = () => {
+        dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' });
+        const newDarkMode = !darkMode;
+        Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF');
+    };
 	
 	return (
 		<div>
@@ -63,6 +71,7 @@ function Layout({ title, description, children }) {
                             </NextLink>
                             <div className={classes.grow}></div>
                             <div>
+                            <Switch checked={darkMode} onChange={darkModeChangeHandler} />
                                 <NextLink href='/cart' passHref>
                                     <Link>Cart</Link>
                                 </NextLink>
