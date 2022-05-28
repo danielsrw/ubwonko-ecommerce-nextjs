@@ -16,6 +16,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { AppBar, Toolbar, Typography, Container, Link, createMuiTheme, ThemeProvider, CssBaseline, Switch, Badge, Button, Menu, MenuItem, Box, IconButton, Drawer, List, ListItem, Divider, ListItemText, InputBase, from } from '@material-ui/core';
 
 function Layout({ children }) {
+	const classes = useStyles();
+	
 	return (
 		<div>
 			<Head>
@@ -24,17 +26,35 @@ function Layout({ children }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <AppBar position='static'>
+            <AppBar position="static" className={classes.navbar}>
             	<Toolbar>
-            		<Typography>UBWONKO</Typography>
+                    {/*<Box display="flex" alignItems="center">*/}
+                        {/*<IconButton edge="start" aria-label="open drawer" className={classes.menuButton} >
+                            <MenuIcon className={classes.navbarButton} />
+                        </IconButton>*/}
+                        <NextLink href="/" passHref>
+                            <Link>
+                                <Typography className={classes.brand}>UBWONKO</Typography>
+                            </Link>
+                        </NextLink>
+                        <div className={classes.grow}></div>
+                        <div>
+                            <NextLink href='/cart' passHref>
+                                <Link>Cart</Link>
+                            </NextLink>
+                            <NextLink href='/login' passHref>
+                                <Link>Login</Link>
+                            </NextLink>
+                        </div>
+                    {/*</Box>*/}
             	</Toolbar>
             </AppBar>
-            <Container>
+            <Container className={classes.main}>
             	{ children }
             </Container>
-            <footer>
+            <footer className={classes.footer}>
             	<Typography>
-            		All right reserved. Ubwonko 2022
+            		{/*All right reserved. Ubwonko 2022*/}
             	</Typography>
             </footer>
 		</div>
